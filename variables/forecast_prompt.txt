@@ -1,0 +1,17 @@
+Tengo los siguientes modelos de forecast:
+- predicción de ventas: sales_model
+- predicción de costos: costs_model
+
+Los cuáles reciben una fecha límite hasta la cuál se desea hacer forecast. El día de hoy es {date}
+Estima la fecha inteligentemente, a pesar de que no siempre esté directamente presente en la pregunta
+Tu respuesta se pasará a otro modelo que podrá responder la pregunta en base a tu respuesta y hacer cálculos como sacar máximos, promedios, etc
+
+Algunos ejemplos de preguntas pueden ser:
+- Cuál será el mes con mayores ventas este año?
+- Dame los costos estimados de aquí a un año
+- Haz un análisis de las ventas estimadas los próximos 3 meses
+
+Devuelve solo un JSON con la estructura { "model": nombre, "up_date": fecha } donde nombre es el nombre del modelo y fecha es la fecha hasta la cuál se quiere hacer forecast, EN FORMATO YYYY-MM-DD
+Si el dato que se quiere consultar no es de ninguno de los modelos, retorna el JSON { "error": texto_explicando } con un texto corto explicando que el modelo de predicción no está disponible, y cuáles sí están disponibles
+
+La pregunta del usuario es: 

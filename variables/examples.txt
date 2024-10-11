@@ -1,0 +1,23 @@
+"Pregunta": "Cuánto se ha vendido en general a la fecha de hoy?"
+"Respuesta": "SELECT SUM(AutoWorldOrders.SALES) AS tota_sales FROM `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders` AS AutoWorldOrders WHERE AutoWorldOrders.ORDER_DATE <= CURRENT_DATE()"
+
+"Pregunta": "Cuánto se ha vendido en general por línea?"
+"Respuesta": "SELECT AutoWorldOrders.PRODUCTLINE, SUM(AutoWorldOrders.SALES) AS TotalSales FROM `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders` AS AutoWorldOrders WHERE AutoWorldOrders.ORDER_DATE <= CURRENT_DATE() GROUP BY AutoWorldOrders.PRODUCTLINE ORDER BY TotalSales DESC"
+
+"Pregunta": "Cuánto se vendió el año pasado por ciudad?"
+"Respuesta": "SELECT AutoWorldOrders.CITY, SUM(AutoWorldOrders.SALES) AS TotalSales FROM `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders` AS AutoWorldOrders WHERE AutoWorldOrders.ORDER_DATE BETWEEN '2023-01-01' AND '2023-12-31' GROUP BY AutoWorldOrders.CITY ORDER BY TotalSales DESC"
+
+"Pregunta": "¿Cuáles han sido los productos más vendidos en Lyon?"
+"Respuesta": "SELECT AutoWorldOrders.PRODUCTLINE, SUM(AutoWorldOrders.SALES) AS TotalSales FROM `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders` AS AutoWorldOrders WHERE UPPER(AutoWorldOrders.CITY) = 'LYON' GROUP BY AutoWorldOrders.PRODUCTLINE ORDER BY TotalSales DESC"
+
+"Pregunta": "¿Cuánta utilidad bruta, gastos operativos y margen tengo?"
+"Respuesta": "SELECT ROUND(SUM(AutoWorldOrders.SALES - (AutoWorldOrders.QUANTITYORDERED * AutoWorldProducts.UNIT_COSTS)), 2) AS utilidad_bruta, ROUND(SUM(AutoWorldOrders.QUANTITYORDERED * AutoWorldProducts.UNIT_EXPENSES), 2) AS gastos_operativos, ROUND(SUM(AutoWorldOrders.SALES - (AutoWorldOrders.QUANTITYORDERED * AutoWorldProducts.UNIT_COSTS))/SUM(AutoWorldOrders.SALES), 4) as margen_bruto_pctg FROM `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders` AS AutoWorldOrders INNER JOIN `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldProducts` AS AutoWorldProducts ON AutoWorldOrders.PRODUCTLINE = AutoWorldProducts.PRODUCTLINE AND DATE_TRUNC(AutoWorldOrders.ORDER_DATE, MONTH) = AutoWorldProducts.MONTH WHERE AutoWorldOrders.ORDER_DATE <= CURRENT_DATE()"
+
+"Pregunta": "¿Cuánto han cambiado las ventas vs los últimos 2 años?"
+"Respuesta": "SELECT EXTRACT(YEAR FROM AutoWorldOrders.ORDER_DATE) AS Year, SUM(AutoWorldOrders.SALES) AS TotalSales FROM `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders` AS AutoWorldOrders WHERE AutoWorldOrders.ORDER_DATE BETWEEN '2022-01-01' AND CURRENT_DATE() GROUP BY Year ORDER BY Year"
+
+"Pregunta": "Cuáles han sido las ventas por cuarto?"
+"Respuesta": "SELECT EXTRACT(YEAR FROM AutoWorldOrders.ORDER_DATE) AS Year, CASE WHEN EXTRACT(MONTH FROM AutoWorldOrders.ORDER_DATE) BETWEEN 1 AND 3 THEN 'Q1' WHEN EXTRACT(MONTH FROM AutoWorldOrders.ORDER_DATE) BETWEEN 4 AND 6 THEN 'Q2' WHEN EXTRACT(MONTH FROM AutoWorldOrders.ORDER_DATE) BETWEEN 7 AND 9 THEN 'Q3' ELSE 'Q4' END AS Quarter, SUM(AutoWorldOrders.SALES) AS TotalSales FROM `analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders` AS AutoWorldOrders GROUP BY 1, 2 ORDER BY Year, Quarter"
+
+"Pregunta": "Haz JOIN de la tabla Budget y haz un análisis comparando las ventas, costos y gastos estimados/presupuestados y los reales"
+"Respuesta": "SELECT SUM(REAL_SALES) AS REAL_SALES, SUM(EXPECTED_SALES) AS EXPECTED_SALES, SUM(REAL_COSTS) AS REAL_COSTS, SUM(EXPECTED_COSTS) AS EXPECTED_COSTS, SUM(REAL_EXPENSES) AS REAL_EXPENSES, SUM(EXPECTED_EXPENSES) AS EXPECTED_EXPENSES FROM (SELECT DATE_TRUNC(AutoWorldOrders.ORDER_DATE, MONTH) AS MONTH, ROUND(SUM(AutoWorldOrders.SALES), 2) AS REAL_SALES, ROUND(SUM(AutoWorldProducts.UNIT_COSTS * AutoWorldOrders.QUANTITYORDERED), 2) AS REAL_COSTS, ROUND(SUM(AutoWorldProducts.UNIT_EXPENSES * AutoWorldOrders.QUANTITYORDERED), 2) AS REAL_EXPENSES FROM analitica-demos.ChatbotFinanciero_GenAI.AutoWorldOrders AS AutoWorldOrders INNER JOIN analitica-demos.ChatbotFinanciero_GenAI.AutoWorldProducts AS AutoWorldProducts ON AutoWorldOrders.PRODUCTLINE = AutoWorldProducts.PRODUCTLINE AND DATE_TRUNC(AutoWorldOrders.ORDER_DATE, MONTH) = AutoWorldProducts.MONTH GROUP BY 1) AS OrdersProducts INNER JOIN analitica-demos.ChatbotFinanciero_GenAI.AutoWorldBudget AS AutoWorldBudget ON OrdersProducts.MONTH = AutoWorldBudget.MONTH"

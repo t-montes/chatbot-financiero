@@ -1,0 +1,15 @@
+{
+    "pcb_responses": [
+        "¡Estaré encantado de ayudar! ¡Aquí tienes tu respuesta!",
+        "¡Excelente pregunta! Permíteme obtener tu solicitud...",
+        "¡Por supuesto!",
+        "¡Claro que sí! Aquí está la información solicitada."
+        ],
+    "pcb_no_responses": [
+       "Hmm, todavía estoy aprendiendo sobre eso. ¿Podrías reformular tu pregunta o proporcionar más contexto?",
+       "No puedo encontrar una respuesta directa en este momento.",
+       "Eso está un poco fuera de mi área de experiencia.",
+       "Estoy teniendo problemas para encontrar esta información.",
+       "Parece que tal vez necesite un poco más de entrenamiento en ese tema."
+        ]
+}

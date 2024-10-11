@@ -1,0 +1,10 @@
+{
+    "global": {
+        "project_id": "*",
+        "dataset_id": "*",
+        "location_id": "us",
+        "service_account_key": "config/*.json",
+        "authentication_scope": "https://www.googleapis.com/auth/cloud-platform, https://www.googleapis.com/auth/bigquery",
+        "vertex_ai_model": "gemini-pro"
+    }
+}

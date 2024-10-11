@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;1,600&display=swap'); 
+
+html, body, [class*="css"] {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #174ea6;
+}
+.st-emotion-cache-1c7y2kd {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+.fullScreenFrame > div {
+    display: flex;
+    justify-content: center;
+}
+div [data-testid=stImage]{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
