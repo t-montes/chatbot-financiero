@@ -2,7 +2,7 @@ from pandas import Timestamp, DateOffset
 import pickle
 import os
 
-last_date = Timestamp('2024-08-01 00:00:00') # taken from notebook
+last_date = Timestamp('2024-10-01 00:00:00') # taken from notebook
 get_forecast_dates = lambda steps: [last_date + DateOffset(months=i) for i in range(1, steps+1)]
 
 models = {}

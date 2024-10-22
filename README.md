@@ -5,8 +5,8 @@
 The general commands before using it, are:
 
 ```shell
-$ git clone https://github.com/t-montes/chatbot-financiero-genai
-$ cd chatbot-financiero-genai
+$ git clone https://github.com/t-montes/chatbot-financiero
+$ cd chatbot-financiero
 ```
 
 ### Development and Testing

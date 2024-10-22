@@ -152,7 +152,7 @@ def generate_forecast_call(user_question):
 
     #params_json['model'] = f"./ml/{params_json['model']}.pkl"
     up_date = datetime.strptime(params_json['up_date'], '%Y-%m-%d').date()
-    if up_date > date(2026, 8, 31): return "Únicamente se pueden hacer predicciones hasta la fechan 2026-08-17" # 2 years after the end of the dataset
+    if up_date > date(2026, 10, 31): return "Únicamente se pueden hacer predicciones hasta la fecha 2026-10-17" # 2 years after the end of the dataset
     diff = int(((up_date.year - today.year) * 12 + up_date.month - today.month + (up_date.day - today.day) / 30)//1)#+1
     if diff < 1: return "Para poder hacer predicciones, se deben poner fechas futuras a la fecha de hoy"
     params_json['steps'] = diff
